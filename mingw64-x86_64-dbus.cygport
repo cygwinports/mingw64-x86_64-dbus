@@ -1,0 +1,39 @@
+CROSS_HOST="x86_64-w64-mingw32"
+inherit cross
+
+NAME="mingw64-x86_64-dbus"
+VERSION=1.6.16
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="D-Bus IPC system for Win64 toolchain"
+DESCRIPTION="This package does NOT contain cygwin binaries.  Instead, it
+contains msvcrt-linked binaries (aka 'mingw').  It is for use with the
+mingw64-x86_64-gcc cross compiler, and installs into the
+/usr/x86_64-w64-mingw32/sys-root/mingw/{lib,include} directories."
+HOMEPAGE="http://www.freedesktop.org/wiki/Software/dbus"
+SRC_URI="http://dbus.freedesktop.org/releases/dbus/dbus-${VERSION}.tar.gz"
+SRC_DIR="dbus-${VERSION}"
+
+DIFF_EXCLUDES="debug-*.conf org.*.service dbus-daemon.1 dbus-arch-deps.h"
+
+CYGCONF_ARGS="
+	--libexecdir=${CROSS_BINDIR}
+	--disable-abstract-sockets
+	--disable-doxygen-docs
+	--disable-xml-docs
+	--with-xml=expat
+	--with-dbus-session-bus-default-address=autolaunch:
+	--with-dbus-user=SYSTEM
+	--with-init-scripts=none
+	--without-x
+"
+MAKEOPTS+=" dist_man1_MANS= man1_MANS= dist_html_DATA= html_DATA= "
+
+KEEPDIRS="
+	${CROSS_PREFIX}/etc/dbus-1/session.d
+	${CROSS_PREFIX}/etc/dbus-1/system.d
+	${CROSS_DATADIR}/dbus-1/services
+	${CROSS_DATADIR}/dbus-1/system-services
+"
+
+KEEP_LA_FILES="none"
