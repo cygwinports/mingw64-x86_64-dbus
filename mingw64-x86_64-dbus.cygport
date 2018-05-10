@@ -2,7 +2,7 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross
 
 NAME="mingw64-x86_64-dbus"
-VERSION=1.10.22
+VERSION=1.12.8
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="D-Bus IPC system for Win64 toolchain"
@@ -35,5 +35,3 @@ KEEPDIRS="
 	${CROSS_DATADIR}/dbus-1/services
 	${CROSS_DATADIR}/dbus-1/system-services
 "
-
-KEEP_LA_FILES="none"
